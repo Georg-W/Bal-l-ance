@@ -9,15 +9,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Start">
-
-        </activity>
-        <activity android:name=".GameView">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".GameView" />
+        <activity android:name=".ResultScreen" />
+        <activity android:name=".GameView2"></activity>
     </application>
 
 </manifest>
