@@ -10,15 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.ersgutercomputer.ballance.ResultScreen">
 
-    <TextView
-        android:text="Congrats mate!!"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:textSize="30dp"
-        android:id="@+id/timeView" />
-
     <Button
         android:text="Restart"
         android:layout_width="wrap_content"
@@ -29,15 +20,26 @@
         android:layout_below="@+id/timeView"
         android:layout_centerHorizontal="true" />
 
+    <TextView
+        android:text="Congrats mate!!"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:id="@+id/timeView"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="49dp" />
+
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:text="PlayerName"
         android:ems="10"
-        android:layout_above="@+id/saveButton"
+        android:id="@+id/playerName"
+        android:layout_below="@+id/restartButton"
         android:layout_alignEnd="@+id/timeView"
-        android:id="@+id/playerName" />
+        android:layout_marginTop="43dp" />
 
     <Button
         android:text="Save"
@@ -45,8 +47,19 @@
         android:layout_height="wrap_content"
         android:id="@+id/saveButton"
         android:onClick="onSave"
-        android:layout_marginBottom="25dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/restartButton" />
+        android:layout_below="@+id/playerName"
+        android:layout_alignStart="@+id/restartButton"
+        android:layout_marginTop="16dp" />
+
+
+    <ListView
+        android:id="@+id/save_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:layout_below="@+id/saveButton"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="24dp" />
+
 
 </RelativeLayout>
