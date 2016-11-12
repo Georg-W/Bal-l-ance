@@ -1,6 +1,7 @@
 package com.example.ersgutercomputer.ballance;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
@@ -12,6 +13,8 @@ import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
+
+import java.util.Timer;
 
 import static android.graphics.Color.BLACK;
 import static android.graphics.Color.BLUE;
@@ -33,11 +36,14 @@ public class Level_1 extends View {
     private int viewWidth;
     private int viewHeight;
 
+    private long startTime;
+
 
     public Level_1(Context context) {
         super(context);
-        createBubble();
+        createBall();
         createHole();
+        startTime = System.currentTimeMillis();
     }
 
     public Level_1(Context context, AttributeSet attrs) {
@@ -67,6 +73,7 @@ public class Level_1 extends View {
         Paint linePaint = new Paint();
         linePaint.setColor(BLACK);
         canvas.drawLine(550,0,550,700,linePaint);
+
     }
 
     void changePosition(float a, float b){
@@ -79,7 +86,7 @@ public class Level_1 extends View {
         checkWin();
     }
 
-    private void createBubble() {
+    private void createBall() {
         xB = 500;
         yB = 300;
         diameter = 100;
@@ -89,7 +96,7 @@ public class Level_1 extends View {
     }
     private void createHole() {
         xH = 500;
-        yH = 700;
+        yH = 1500;
         diameter = 100;
         hole = new ShapeDrawable(new OvalShape());
         hole.setBounds(xH, yH, xH + diameter, yH + diameter);
@@ -98,12 +105,31 @@ public class Level_1 extends View {
 
     void checkWin(){
         if ((xB >= xH-50 && xB <= xH+50)&& (yB >= yH-50) && (yB <= yH+50)){
+            Toast.makeText(this.getContext(), "Win!", Toast.LENGTH_SHORT).show();
+            xB = 500;
+            yB = 300;
+            ball.setBounds(xB, yB, xB + diameter, yB + diameter);
             Log.d("test", "Win!");
+            long millis = System.currentTimeMillis() - startTime;
+            int seconds = (int) (millis / 1000);
+            int minutes = seconds / 60;
+            seconds = seconds % 60;
+            String timeResult = String.format("%d:%02d", minutes, seconds);
+            Intent end = new Intent(this.getContext(), ResultScreen.class);
+            end.setAction(Intent.ACTION_SEND);
+            end.putExtra(Intent.EXTRA_TEXT, timeResult);
+            end.setType("text/plain");
+            this.getContext().startActivity(end);
         }
     }
     void checkLose(){
         if ((xB >= 0 && xB <= 550-200) || (xB >= 550+200 && xB < viewWidth)){
+            Toast.makeText(this.getContext(), "Loss!!", Toast.LENGTH_SHORT).show();
+            xB = 500;
+            yB = 300;
+            ball.setBounds(xB, yB, xB + diameter, yB + diameter);
             Log.d("test", "Lose!");
+
         }
     }
 }
