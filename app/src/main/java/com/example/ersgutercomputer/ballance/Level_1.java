@@ -11,7 +11,10 @@ import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
+import static android.graphics.Color.BLACK;
+import static android.graphics.Color.BLUE;
 import static android.graphics.Color.RED;
 
 /**
@@ -20,15 +23,21 @@ import static android.graphics.Color.RED;
 
 public class Level_1 extends View {
 
-    private int x;
-    private int y;
-    private ShapeDrawable bubble;
+    private int xB;
+    private int yB;
+    private int xH;
+    private int yH;
+    private ShapeDrawable ball;
+    private ShapeDrawable hole;
     private int diameter;
+    private int viewWidth;
+    private int viewHeight;
 
 
     public Level_1(Context context) {
         super(context);
         createBubble();
+        createHole();
     }
 
     public Level_1(Context context, AttributeSet attrs) {
@@ -50,23 +59,51 @@ public class Level_1 extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        bubble.draw(canvas);
+        viewHeight = canvas.getHeight();
+        viewWidth = canvas.getWidth();
+        hole.draw(canvas);
+        ball.draw(canvas);
+
+        Paint linePaint = new Paint();
+        linePaint.setColor(BLACK);
+        canvas.drawLine(550,0,550,700,linePaint);
     }
 
     void changePosition(float a, float b){
-        x = (int) (x + a);
-        y = (int) (y + b);
-        Log.d("test", ""+x+" "+y);
-        bubble.setBounds(x, y, x + diameter, y + diameter);
+        xB = (int) (xB + a*2);
+        yB = (int) (yB - b*2);
+        if ((xB+100 <= viewWidth && yB+100 <= viewHeight) && (xB >= 0 && yB >= 0)){
+            ball.setBounds(xB, yB, xB + diameter, yB + diameter);
+        }
+        checkLose();
+        checkWin();
     }
 
     private void createBubble() {
-
-        x = 200;
-        y = 300;
+        xB = 500;
+        yB = 300;
         diameter = 100;
-        bubble = new ShapeDrawable(new OvalShape());
-        bubble.setBounds(x, y, x + diameter, y + diameter);
-        bubble.getPaint().setColor(0xff74AC23);
+        ball = new ShapeDrawable(new OvalShape());
+        ball.setBounds(xB, yB, xB + diameter, yB + diameter);
+        ball.getPaint().setColor(BLUE);
+    }
+    private void createHole() {
+        xH = 500;
+        yH = 700;
+        diameter = 100;
+        hole = new ShapeDrawable(new OvalShape());
+        hole.setBounds(xH, yH, xH + diameter, yH + diameter);
+        hole.getPaint().setColor(BLACK);
+    }
+
+    void checkWin(){
+        if ((xB >= xH-50 && xB <= xH+50)&& (yB >= yH-50) && (yB <= yH+50)){
+            Log.d("test", "Win!");
+        }
+    }
+    void checkLose(){
+        if ((xB >= 0 && xB <= 550-200) || (xB >= 550+200 && xB < viewWidth)){
+            Log.d("test", "Lose!");
+        }
     }
 }
