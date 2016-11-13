@@ -61,7 +61,7 @@ public class SaveDataSource {
     }
 
     public List<Save> getAllSaves() {
-        List<Save> comments = new ArrayList<>();
+        List<Save> saves = new ArrayList<>();
 
         Cursor cursor = database.query(DatabaseHelper.TABLE_NAME,
                 allColumns, null, null, null, null, null);
@@ -69,12 +69,35 @@ public class SaveDataSource {
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             Save save = cursorToSave(cursor);
-            comments.add(save);
+            saves.add(save);
             cursor.moveToNext();
         }
-        // make sure to close the cursor
         cursor.close();
-        return comments;
+        return saves;
+    }
+
+    public List<Save> getHighScores(){
+
+        String where = null;
+        String whereArgs[];
+        String groupBy = null;
+        String having = null;
+        String order = DatabaseHelper.TIME +" asc";
+
+
+        List<Save> saves = new ArrayList<>();
+
+        Cursor cursor = database.query(DatabaseHelper.TABLE_NAME,
+                allColumns, null, null, null, null, order);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Save save = cursorToSave(cursor);
+            saves.add(save);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return saves;
     }
 
     private Save cursorToSave(Cursor cursor) {

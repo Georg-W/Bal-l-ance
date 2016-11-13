@@ -30,7 +30,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             TIME + " TEXT)";
 
     public static final String DROP_QUERY = "drop table if exists" + TABLE_NAME;
-    public static final String SELECT_QUERY = "select * from " + TABLE_NAME;
 
 
 
@@ -54,8 +53,4 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         onCreate(sqLiteDatabase);
     }
 
-    public Cursor getSaveCursor() {
-        Log.d("setSaves","works"+this.getWritableDatabase().rawQuery(SELECT_QUERY, null));
-        return this.getWritableDatabase().rawQuery(SELECT_QUERY, null);
-    }
 }
