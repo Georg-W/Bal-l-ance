@@ -4,6 +4,7 @@ package com.example.ersgutercomputer.ballance;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -40,7 +41,6 @@ private String time;
         android.R.layout.simple_list_item_1, values);
         setListAdapter(adapter);
 
-
         Intent intent = getIntent();
         time = intent.getStringExtra(Intent.EXTRA_TEXT);
         TextView timeView = (TextView) findViewById(R.id.timeView);
@@ -48,7 +48,9 @@ private String time;
     }
 
 
-    public void onClick(View view) {
+
+
+    public void onActionClick(View view) {
         @SuppressWarnings("unchecked")
         ArrayAdapter<Save> adapter = (ArrayAdapter<Save>) getListAdapter();
         Save save = null;
@@ -58,6 +60,12 @@ private String time;
                 player = name.getText().toString();
                 save = datasource.createSave(level,player,time);
                 adapter.add(save);
+
+                List<Save> values = datasource.getHighScores();
+                ArrayAdapter<Save>adapterNew = new ArrayAdapter<>(this,
+                        android.R.layout.simple_list_item_1, values);
+                setListAdapter(adapterNew);
+                Log.d("item", "added");
                 break;
             case R.id.delete:
                 if (getListAdapter().getCount() > 0) {
@@ -70,10 +78,14 @@ private String time;
         adapter.notifyDataSetChanged();
     }
 
-
     void onRestartGame(View v){
         Intent i = new Intent(this, Start.class);
         startActivity(i);
+    }
+
+    void startNextLevel(View v){
+        Intent n = new Intent(this, GameView2.class);
+        startActivity(n);
     }
 
 

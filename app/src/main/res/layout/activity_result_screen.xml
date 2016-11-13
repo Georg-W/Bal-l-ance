@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Delete First"
-        android:onClick="onClick"/>
+        android:onClick="onActionClick"/>
 
     <ListView
         android:id="@android:id/list"
@@ -40,7 +40,7 @@
         android:text="Save Score"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onClick"
+        android:onClick="onActionClick"
         android:id="@+id/add" />
 
     <TextView
@@ -56,6 +56,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onRestartGame"
-        android:id="@+id/restartButtton" />
+        android:id="@+id/restartButton" />
+
+    <Button
+        android:text="Next Level"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="startNextLevel"
+        android:id="@+id/startNextLevel" />
 
 </LinearLayout>

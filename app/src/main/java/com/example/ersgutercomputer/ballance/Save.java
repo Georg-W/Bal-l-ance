@@ -38,6 +38,6 @@ public class Save {
     }
     @Override
     public String toString() {
-        return level + " "+ player+" "+time;
+        return player+" "+time;
     }
 }
