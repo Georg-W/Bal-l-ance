@@ -6,19 +6,40 @@ package com.example.ersgutercomputer.ballance;
 
 public class Save {
 
-    private String playerString;
-    private String timeString;
+    private long id;
+    private int level;
+    private String player;
+    private String time;
 
 
-    public Save(String playerStringString, String timeString){
-        this.playerString = playerStringString;
-        this.timeString = timeString;
+
+    public long getId() {
+        return id;
+    }
+    public int getLevel() {
+        return level;
+    }
+    public String getPlayer(){
+        return player;
+    }
+    public String getTime() {
+        return time;
     }
 
-    public String getPlayerString(){
-        return playerString;
+    public void setId(long id) {
+        this.id = id;
     }
-    public String getTimeString() {
-        return timeString;
+    public void setPlayer(String player) {
+        this.player = player;
+    }
+    public void setTime(String time) {
+        this.time = time;
+    }
+    public void setLevel(int level) {
+        this.level = level;
+    }
+    @Override
+    public String toString() {
+        return level + ""+ player+" "+time;
     }
 }

@@ -5,10 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import static java.util.Arrays.asList;
 
 /**
  * Created by Georg on 12.11.2016.
@@ -16,41 +16,46 @@ import static java.util.Arrays.asList;
 
 public class DatabaseHelper extends SQLiteOpenHelper{
 
+
+    public static final String TABLE_NAME = "highScores";
+    public static final String _ID = "_id";
+    public static final String TIME = "time";
+    public static final String PLAYER = "player";
+    public static final String LEVEL = "player";
+
+    public static final String CREATE_DATABASE = "create table " + TABLE_NAME + " (" +
+            _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            LEVEL + " INTEGER, " +
+            PLAYER + " TEXT, " +
+            TIME + " TEXT)";
+
+    public static final String DROP_QUERY = "drop table if exists" + TABLE_NAME;
+    public static final String SELECT_QUERY = "select * from " + TABLE_NAME;
+
+
+
     public DatabaseHelper(Context context) {
         super(context, "Saves", null, 1);
+        Log.d("helper","helper got created!");
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL(DatabaseTables.CREATE_QUERY);
-        setSaves(sqLiteDatabase);
+        sqLiteDatabase.execSQL(CREATE_DATABASE);
+        Log.d("helper","tables got created!");
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        sqLiteDatabase.execSQL(DatabaseTables.DROP_QUERY);
-        sqLiteDatabase.execSQL(DatabaseTables.CREATE_QUERY);
-    }
-
-    private void setSaves(SQLiteDatabase sqLiteDatabase){
-
-        List<Save> saves = asList(
-                new Save("Georg","1:23"),
-                new Save("Flo","5:23"),
-                new Save("Tobi","7:23"),
-                new Save("Michael","2:33"),
-                new Save("Tobias","1:13"));
-
-        for (Save save: saves) {
-            ContentValues values = new ContentValues();
-            values.put(DatabaseTables.PLAYER, save.getPlayerString());
-            values.put(DatabaseTables.TIME, save.getTimeString());
-
-            sqLiteDatabase.insert(DatabaseTables.TABLE_NAME, null, values);
-        }
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
+        Log.w(DatabaseHelper.class.getName(),
+                "Upgrading database from version " + oldVersion + " to "
+                        + newVersion + ", which will destroy all old data");
+        sqLiteDatabase.execSQL(DROP_QUERY);
+        onCreate(sqLiteDatabase);
     }
 
     public Cursor getSaveCursor() {
-        return this.getWritableDatabase().rawQuery(DatabaseTables.SELECT_QUERY, null);
+        Log.d("setSaves","works"+this.getWritableDatabase().rawQuery(SELECT_QUERY, null));
+        return this.getWritableDatabase().rawQuery(SELECT_QUERY, null);
     }
 }
