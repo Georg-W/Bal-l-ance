@@ -3,22 +3,16 @@ package com.example.ersgutercomputer.ballance;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Point;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.Display;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.Toast;
 
-import java.util.Timer;
 
 import static android.graphics.Color.BLACK;
 import static android.graphics.Color.BLUE;
-import static android.graphics.Color.RED;
 
 /**
  * Created by ersgutercomputer on 10.11.2016.
@@ -32,6 +26,7 @@ public class Level_1 extends View {
     private int yH;
     private ShapeDrawable ball;
     private ShapeDrawable hole;
+    private Drawable levelBackground;
     private int diameter;
     private int viewWidth;
     private int viewHeight;
@@ -43,6 +38,7 @@ public class Level_1 extends View {
         super(context);
         createBall();
         createHole();
+        createBackground();
         startTime = System.currentTimeMillis();
     }
 
@@ -67,18 +63,20 @@ public class Level_1 extends View {
 
         viewHeight = canvas.getHeight();
         viewWidth = canvas.getWidth();
-        hole.draw(canvas);
-        ball.draw(canvas);
 
-        Paint linePaint = new Paint();
-        linePaint.setColor(BLACK);
-        canvas.drawLine(550,0,550,700,linePaint);
+        levelBackground.setBounds(0,0,viewWidth,viewHeight);
+        levelBackground.draw(canvas);
+
+        hole.draw(canvas);
+
+        ball.draw(canvas);
 
     }
 
     void changePosition(float a, float b){
         xB = (int) (xB + a*2);
         yB = (int) (yB - b*2);
+
         if ((xB+100 <= viewWidth && yB+100 <= viewHeight) && (xB >= 0 && yB >= 0)){
             ball.setBounds(xB, yB, xB + diameter, yB + diameter);
         }
@@ -87,28 +85,30 @@ public class Level_1 extends View {
     }
 
     private void createBall() {
-        xB = 500;
-        yB = 300;
+        xB = 700;
+        yB = 500;
         diameter = 100;
         ball = new ShapeDrawable(new OvalShape());
         ball.setBounds(xB, yB, xB + diameter, yB + diameter);
         ball.getPaint().setColor(BLUE);
     }
     private void createHole() {
-        xH = 500;
-        yH = 1500;
+        xH = 700;
+        yH = 1800;
         diameter = 100;
         hole = new ShapeDrawable(new OvalShape());
         hole.setBounds(xH, yH, xH + diameter, yH + diameter);
         hole.getPaint().setColor(BLACK);
     }
+    private void createBackground() {
+        levelBackground = getResources().getDrawable(R.drawable.level_1);
+    }
+
+
+
 
     void checkWin(){
         if ((xB >= xH-50 && xB <= xH+50)&& (yB >= yH-50) && (yB <= yH+50)){
-            Toast.makeText(this.getContext(), "Win!", Toast.LENGTH_SHORT).show();
-            xB = 500;
-            yB = 300;
-            ball.setBounds(xB, yB, xB + diameter, yB + diameter);
             Log.d("test", "Win!");
             long millis = System.currentTimeMillis() - startTime;
             int seconds = (int) (millis / 1000);
@@ -124,7 +124,6 @@ public class Level_1 extends View {
     }
     void checkLose(){
         if ((xB >= 0 && xB <= 550-200) || (xB >= 550+200 && xB < viewWidth)){
-            Toast.makeText(this.getContext(), "Loss!!", Toast.LENGTH_SHORT).show();
             xB = 500;
             yB = 300;
             ball.setBounds(xB, yB, xB + diameter, yB + diameter);
