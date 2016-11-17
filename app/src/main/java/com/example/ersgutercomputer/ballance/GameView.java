@@ -11,14 +11,14 @@ public class GameView extends AppCompatActivity implements SensorEventListener{
 
     private Sensor mSensor;
     private SensorManager mSensorManager;
-    Level_1 level1;
+    Level level;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        level1 = new Level_1(this);
-        setContentView(level1);
+        level = new Level(this);
+        setContentView(level);
         mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
         mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mSensorManager.registerListener(this, mSensor,
@@ -27,8 +27,8 @@ public class GameView extends AppCompatActivity implements SensorEventListener{
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        level1.changePosition(event.values[0], event.values[1]);
-        level1.invalidate();
+        level.changePosition(event.values[0], event.values[1]);
+        level.invalidate();
     }
 
     @Override

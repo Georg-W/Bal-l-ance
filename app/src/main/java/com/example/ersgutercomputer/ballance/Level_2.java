@@ -93,8 +93,8 @@ public class Level_2 extends View {
         ball.getPaint().setColor(BLUE);
     }
     private void createHole() {
-        xH = 500;
-        yH = 1500;
+        xH = 680;
+        yH = 1750;
         diameter = 100;
         hole = new ShapeDrawable(new OvalShape());
         hole.setBounds(xH, yH, xH + diameter, yH + diameter);
@@ -107,27 +107,38 @@ public class Level_2 extends View {
 
 
 
-    void checkWin(){
+    boolean checkWin(){
         if ((xB >= xH-50 && xB <= xH+50)&& (yB >= yH-50) && (yB <= yH+50)){
-            Log.d("test", "Win!");
-            long millis = System.currentTimeMillis() - startTime;
-            int seconds = (int) (millis / 1000);
-            int minutes = seconds / 60;
-            seconds = seconds % 60;
-            String timeResult = String.format("%d:%02d", minutes, seconds);
-            Intent end = new Intent(this.getContext(), ResultScreen.class);
-            end.setAction(Intent.ACTION_SEND);
-            end.putExtra(Intent.EXTRA_TEXT, timeResult);
-            end.setType("text/plain");
-            this.getContext().startActivity(end);
+            return true;
+        }
+        else{
+            return false;
         }
     }
-    void checkLose(){
-        if ((xB >= 0 && xB <= 550-200) || (xB >= 550+200 && xB < viewWidth)){
-            xB = 500;
-            yB = 300;
-            ball.setBounds(xB, yB, xB + diameter, yB + diameter);
-            Log.d("test", "Lose!");
+    boolean checkLose(){
+        if (yB<=600){
+            if (((xB >= 0 && xB <= 30) || (xB >= 850 && xB < viewWidth))|| (yB <= 300)){
+                xB = 120;
+                yB = 450;
+                ball.setBounds(xB, yB, xB + diameter, yB + diameter);
+                Log.d("test", "Lose!");
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        else{
+            if ((xB >= 0 && xB <= 680-150) || (xB >= 680+150 && xB < viewWidth)){
+                xB = 680;
+                yB = 500;
+                ball.setBounds(xB, yB, xB + diameter, yB + diameter);
+                Log.d("test", "Lose!");
+                return true;
+            }
+            else{
+                return false;
+            }
 
         }
     }

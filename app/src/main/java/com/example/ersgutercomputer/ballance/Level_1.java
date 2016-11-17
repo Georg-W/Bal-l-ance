@@ -31,7 +31,7 @@ public class Level_1 extends View {
     private int viewWidth;
     private int viewHeight;
 
-    private long startTime;
+
 
 
     public Level_1(Context context) {
@@ -39,7 +39,6 @@ public class Level_1 extends View {
         createBall();
         createHole();
         createBackground();
-        startTime = System.currentTimeMillis();
     }
 
     public Level_1(Context context, AttributeSet attrs) {
@@ -80,12 +79,11 @@ public class Level_1 extends View {
         if ((xB+100 <= viewWidth && yB+100 <= viewHeight) && (xB >= 0 && yB >= 0)){
             ball.setBounds(xB, yB, xB + diameter, yB + diameter);
         }
-        checkLose();
-        checkWin();
+
     }
 
     private void createBall() {
-        xB = 700;
+        xB = 680;
         yB = 500;
         diameter = 100;
         ball = new ShapeDrawable(new OvalShape());
@@ -93,8 +91,8 @@ public class Level_1 extends View {
         ball.getPaint().setColor(BLUE);
     }
     private void createHole() {
-        xH = 700;
-        yH = 1800;
+        xH = 680;
+        yH = 1750;
         diameter = 100;
         hole = new ShapeDrawable(new OvalShape());
         hole.setBounds(xH, yH, xH + diameter, yH + diameter);
@@ -107,28 +105,24 @@ public class Level_1 extends View {
 
 
 
-    void checkWin(){
+    boolean checkWin(){
         if ((xB >= xH-50 && xB <= xH+50)&& (yB >= yH-50) && (yB <= yH+50)){
-            Log.d("test", "Win!");
-            long millis = System.currentTimeMillis() - startTime;
-            int seconds = (int) (millis / 1000);
-            int minutes = seconds / 60;
-            seconds = seconds % 60;
-            String timeResult = String.format("%d:%02d", minutes, seconds);
-            Intent end = new Intent(this.getContext(), ResultScreen.class);
-            end.setAction(Intent.ACTION_SEND);
-            end.putExtra(Intent.EXTRA_TEXT, timeResult);
-            end.setType("text/plain");
-            this.getContext().startActivity(end);
+            return true;
+        }
+        else {
+            return false;
         }
     }
-    void checkLose(){
-        if ((xB >= 0 && xB <= 550-200) || (xB >= 550+200 && xB < viewWidth)){
-            xB = 500;
-            yB = 300;
+    boolean checkLose(){
+        if ((xB >= 0 && xB <= 680-150) || (xB >= 680+150 && xB < viewWidth)){
+            xB = 680;
+            yB = 500;
             ball.setBounds(xB, yB, xB + diameter, yB + diameter);
             Log.d("test", "Lose!");
-
+            return true;
+        }
+        else{
+            return false;
         }
     }
 }
