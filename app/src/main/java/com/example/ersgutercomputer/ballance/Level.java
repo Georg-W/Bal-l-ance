@@ -18,7 +18,7 @@ public class Level extends View {
     Level_1 level1 = new Level_1(this.getContext());
     Level_2 level2 = new Level_2(this.getContext());
     private long startTime;
-    String[] times = new String[1];
+    String[] times = new String[2];
 
     public Level(Context context) {
         super(context);
@@ -73,8 +73,7 @@ public class Level extends View {
                 int minutes = seconds / 60;
                 seconds = seconds % 60;
                 String timeResult = String.format("%d:%02d", minutes, seconds);
-                times[0]=timeResult;
-                Log.d("test","win!");
+                times[0] = timeResult;
                 levelCount = 2;
                 level2.invalidate();
             }
@@ -87,10 +86,12 @@ public class Level extends View {
                 int minutes = seconds / 60;
                 seconds = seconds % 60;
                 String timeResult = String.format("%d:%02d", minutes, seconds);
-                times[1]=timeResult;
+                times[1] = timeResult;
+                String timeString = times[0] + " " +times[1];
+                Log.d("test"," "+times[0] + " " +times[1]);
                 Intent end = new Intent(this.getContext(), ResultScreen.class);
                 end.setAction(Intent.ACTION_SEND);
-                end.putExtra(Intent.EXTRA_TEXT, times);
+                end.putExtra(Intent.EXTRA_TEXT, timeString);
                 end.setType("text/plain");
                 this.getContext().startActivity(end);
             }

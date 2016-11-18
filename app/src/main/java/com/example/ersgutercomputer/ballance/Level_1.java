@@ -1,7 +1,6 @@
 package com.example.ersgutercomputer.ballance;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ShapeDrawable;

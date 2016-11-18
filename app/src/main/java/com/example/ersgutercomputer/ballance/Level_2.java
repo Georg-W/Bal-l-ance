@@ -31,7 +31,6 @@ public class Level_2 extends View {
     private int viewWidth;
     private int viewHeight;
 
-    private long startTime;
 
 
     public Level_2(Context context) {
@@ -39,7 +38,6 @@ public class Level_2 extends View {
         createBall();
         createHole();
         createBackground();
-        startTime = System.currentTimeMillis();
     }
 
     public Level_2(Context context, AttributeSet attrs) {
@@ -85,13 +83,14 @@ public class Level_2 extends View {
     }
 
     private void createBall() {
-        xB = 500;
-        yB = 300;
+        xB = 200;
+        yB = 400;
         diameter = 100;
         ball = new ShapeDrawable(new OvalShape());
         ball.setBounds(xB, yB, xB + diameter, yB + diameter);
         ball.getPaint().setColor(BLUE);
     }
+
     private void createHole() {
         xH = 680;
         yH = 1750;
@@ -100,12 +99,10 @@ public class Level_2 extends View {
         hole.setBounds(xH, yH, xH + diameter, yH + diameter);
         hole.getPaint().setColor(BLACK);
     }
+
     private void createBackground() {
         levelBackground = getResources().getDrawable(R.drawable.level_2);
     }
-
-
-
 
     boolean checkWin(){
         if ((xB >= xH-50 && xB <= xH+50)&& (yB >= yH-50) && (yB <= yH+50)){
@@ -118,8 +115,8 @@ public class Level_2 extends View {
     boolean checkLose(){
         if (yB<=600){
             if (((xB >= 0 && xB <= 30) || (xB >= 850 && xB < viewWidth))|| (yB <= 300)){
-                xB = 120;
-                yB = 450;
+                xB = 200;
+                yB = 400;
                 ball.setBounds(xB, yB, xB + diameter, yB + diameter);
                 Log.d("test", "Lose!");
                 return true;
@@ -130,8 +127,8 @@ public class Level_2 extends View {
         }
         else{
             if ((xB >= 0 && xB <= 680-150) || (xB >= 680+150 && xB < viewWidth)){
-                xB = 680;
-                yB = 500;
+                xB = 200;
+                yB = 400;
                 ball.setBounds(xB, yB, xB + diameter, yB + diameter);
                 Log.d("test", "Lose!");
                 return true;

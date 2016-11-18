@@ -21,7 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public static final String _ID = "_id";
     public static final String TIME = "time";
     public static final String PLAYER = "player";
-    public static final String LEVEL = "player";
+    public static final String LEVEL = "level";
 
     public static final String CREATE_DATABASE = "create table " + TABLE_NAME + " (" +
             _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
