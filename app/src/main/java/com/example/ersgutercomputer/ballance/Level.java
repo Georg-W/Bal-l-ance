@@ -19,6 +19,7 @@ public class Level extends View {
     Level_2 level2 = new Level_2(this.getContext());
     private long startTime;
     String[] times = new String[2];
+    String time1;
 
     public Level(Context context) {
         super(context);
@@ -65,7 +66,6 @@ public class Level extends View {
     void checkWin(){
 
         if (levelCount==1){
-            Log.d("test","works!");
             if (level1.checkWin()){
                 level1.checkWin();
                 long millis = System.currentTimeMillis() - startTime;
@@ -74,6 +74,7 @@ public class Level extends View {
                 seconds = seconds % 60;
                 String timeResult = String.format("%d:%02d", minutes, seconds);
                 times[0] = timeResult;
+                Log.d("asd",""+timeResult+millis);
                 levelCount = 2;
                 level2.invalidate();
             }
