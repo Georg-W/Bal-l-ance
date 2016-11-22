@@ -18,25 +18,27 @@ public class Level extends View {
     Level_1 level1 = new Level_1(this.getContext());
     Level_2 level2 = new Level_2(this.getContext());
     private long startTime;
-    String[] times = new String[2];
-    String time1;
+    long time1;
 
     public Level(Context context) {
         super(context);
+        startTime = System.currentTimeMillis();
     }
 
     public Level(Context context, AttributeSet attrs) {
         super(context, attrs);
+        startTime = System.currentTimeMillis();
     }
 
     public Level(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        startTime = System.currentTimeMillis();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
 
-        startTime = System.currentTimeMillis();
+
         switch (levelCount){
             case 1:
                 level1.onDraw(canvas);
@@ -69,12 +71,8 @@ public class Level extends View {
             if (level1.checkWin()){
                 level1.checkWin();
                 long millis = System.currentTimeMillis() - startTime;
-                int seconds = (int) (millis / 1000);
-                int minutes = seconds / 60;
-                seconds = seconds % 60;
-                String timeResult = String.format("%d:%02d", minutes, seconds);
-                times[0] = timeResult;
-                Log.d("asd",""+timeResult+millis);
+                this.time1 = millis;
+                Log.d("asd",""+millis);
                 levelCount = 2;
                 level2.invalidate();
             }
@@ -82,17 +80,15 @@ public class Level extends View {
         else{
             if (level2.checkWin()){
                 level2.checkWin();
-                long millis = System.currentTimeMillis() - startTime;
+                long millis = System.currentTimeMillis() - startTime-time1;
                 int seconds = (int) (millis / 1000);
                 int minutes = seconds / 60;
                 seconds = seconds % 60;
                 String timeResult = String.format("%d:%02d", minutes, seconds);
-                times[1] = timeResult;
-                String timeString = times[0] + " " +times[1];
-                Log.d("test"," "+times[0] + " " +times[1]);
+                Log.d("test"," "+timeResult);
                 Intent end = new Intent(this.getContext(), ResultScreen.class);
                 end.setAction(Intent.ACTION_SEND);
-                end.putExtra(Intent.EXTRA_TEXT, timeString);
+                end.putExtra(Intent.EXTRA_TEXT, timeResult);
                 end.setType("text/plain");
                 this.getContext().startActivity(end);
             }
