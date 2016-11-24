@@ -13,7 +13,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello Mate!"
+        android:text="@string/hello_mate"
         android:textSize="30dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -26,5 +26,5 @@
         android:onClick="start"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="292dp"
-        android:text="Start Level 1"/>
+        android:text="@string/start_level_1"/>
 </RelativeLayout>

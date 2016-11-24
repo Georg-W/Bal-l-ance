@@ -18,7 +18,7 @@
         android:id="@+id/delete"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Delete First"
+        android:text="@string/delete_first"
         android:onClick="onActionClick"/>
 
     <ListView
@@ -31,20 +31,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Player name"
-        android:textSize="30dp"
+        android:text="@string/player_name"
+        android:textSize="30p"
         android:ems="10"
         android:id="@+id/playerText" />
 
     <Button
-        android:text="Save Score"
+        android:text="@string/save_score"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onActionClick"
         android:id="@+id/add" />
 
     <TextView
-        android:text="TextView"
+        android:text="@string/textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/timeView"
@@ -52,14 +52,14 @@
         android:layout_weight="0.43" />
 
     <Button
-        android:text="Restart"
+        android:text="@string/restart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onRestartGame"
         android:id="@+id/restartButton" />
 
     <Button
-        android:text="Next Level"
+        android:text="@string/next_level"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="startNextLevel"

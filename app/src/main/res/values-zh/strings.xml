@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">貔球求</string>
+    <string name="hello_mate">你好！</string>
+    <string name="start_level_1">开始一次</string>
+    <string name="delete_first">删除一次</string>
+    <string name="player_name">你的名字</string>
+    <string name="save_score">继续比分</string>
+    <string name="textview">东西</string>
+    <string name="restart">重启</string>
+    <string name="next_level">下个阶段</string>
+</resources>

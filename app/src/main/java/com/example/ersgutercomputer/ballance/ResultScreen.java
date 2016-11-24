@@ -48,8 +48,6 @@ private String time;
     }
 
 
-
-
     public void onActionClick(View view) {
         @SuppressWarnings("unchecked")
         ArrayAdapter<Save> adapter = (ArrayAdapter<Save>) getListAdapter();
